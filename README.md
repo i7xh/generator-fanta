@@ -1,4 +1,4 @@
-# generator-fanta [![Build Status](https://secure.travis-ci.org/i7xh/generator-fanta.png?branch=master)](https://travis-ci.org/i7xh/generator-fanta)
+# generator-fanta 
 
 > [Yeoman](http://yeoman.io) generator
 
