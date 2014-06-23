@@ -10,7 +10,6 @@ chalk = require 'chalk'
 class FantaGenerator extends yeoman.generators.Base
   constructor: ->
     yeoman.generators.Base.apply @, arguments
-    @manifest = {}
     @sourceRoot path.join(__dirname, 'templates')
     @pkg = require '../package.json';
     @on 'end', ->
@@ -42,36 +41,91 @@ class FantaGenerator extends yeoman.generators.Base
         ]
       }
       {
+        name: 'root_path'
+        message: 'Set Your App Static Path(default: "/static")'
+        default: if @root_path then @root_path else "/static"
+      }
+      {
         type: 'checkbox'
         name: 'uifeatures'
         message: 'What more would you like?'
         choices: [
           {
-            name: 'bootstrap'
+            name: 'Bootstrap'
             value: 'includeBootstrap'
             checked: true
           }
           {
-            value: 'less'
-            name: 'includeLess'
+            name: 'Less'
+            value: 'includeLess'
             checked: true
           }
           {
-            value: 'modernizr'
-            name: 'includeModernizr'
+            name: 'Modernizr'
+            value: 'includeModernizr'
+            checked: true
+          }
+          {
+            name: 'Bootstrap Javascript files'
+            value: 'includeJsBootstrap'
+            checked: true
+          }
+          {
+            name: 'FontAwesome',
+            value: 'includeFontAwesome',
             checked: false
+          }
+        ]
+      }
+      {
+        type: 'checkbox'
+        name: 'uicomponents'
+        message: 'What more components would you like to support?'
+        choices: [
+          {
+            name: 'AutoComplete'
+            value: 'includeAutoComplete'
+            checked: true
+          }
+          {
+            name: 'SmartTree'
+            value: 'includeSmartTree'
+            checked: true
+          }
+          {
+            name: 'SmartUrl'
+            value: 'includeSmartUrl'
+            checked: true
+          }
+          {
+            name: 'SmartList'
+            value: 'includeSmartList'
+            checked: true
+          }
+          {
+            name: 'SmartPagination'
+            value: 'includeSmartPagination'
+            checked: true
           }
         ]
       }
     ]
     @prompt prompts, (answers) =>
-        isChecked = (choices, value) -> return choices.indexOf(value) > -1
-        @appname = @manifest.name = answers.appname.replace /\"/g, '\\"'
-        @manifest.description = answers.description.replace /\"/g, '\\"'
-        @manifest.apptype = answers.apptype
-        @manifest.includeBootstrap = isChecked answers.uifeatures, 'bootstrap'
-        @manifest.includeLess = isChecked answers.uifeatures, 'less'
-        @manifest.includeModernizr = isChecked answers.uifeatures, 'modernizr'
+        isChecked = (choices, value) -> return value in choices
+        @appname = answers.appname.replace /\"/g, '\\"'
+        @description = answers.description.replace /\"/g, '\\"'
+        @apptype = answers.apptype
+        @root_path = answers.root_path
+        @includeBootstrap = isChecked answers.uifeatures, 'includeBootstrap'
+        @includeLess = isChecked answers.uifeatures, 'includeLess'
+        @includeModernizr = isChecked answers.uifeatures, 'includeModernizr'
+        @includeJsBootstrap = isChecked answers.uifeatures, 'includeJsBootstrap'
+        @includeFontAwesome = isChecked answers.uifeatures, 'includeFontAwesome'
+        @includeAutoComplete = isChecked answers.uicomponents, 'includeAutoComplete'
+        @includeSmartList = isChecked answers.uicomponents, 'includeSmartList'
+        @includeSmartTree = isChecked answers.uicomponents, 'includeSmartTree'
+        @includeSmartUrl = isChecked answers.uicomponents, 'includeSmartUrl'
+        @includeSmartPagination = isChecked answers.uicomponents, 'includeSmartPagination'
         done()
 
 
@@ -80,7 +134,7 @@ FantaGenerator.prototype.projectfiles = ->
   @copy 'jshintrc', '.jshintrc'
 
 FantaGenerator.prototype.gruntfile = ->
-  @template 'Gruntfile.js'
+  @copy 'Gruntfile.js', 'Gruntfile.js'
 
 FantaGenerator.prototype.packageJSON = ->
   @template '_package.json', 'package.json'
@@ -88,19 +142,46 @@ FantaGenerator.prototype.packageJSON = ->
 FantaGenerator.prototype.bowerJSON = ->
   @template '_bower.json', 'bower.json'
 
+FantaGenerator.prototype.coffeelint = ->
+  @copy '_coffeelint.json', 'coffeelint.json'
+
 FantaGenerator.prototype.app = ->
   @mkdir 'app'
   @mkdir 'app/scripts'
+  @mkdir 'app/scripts/cells'
+  @mkdir 'app/scripts/common'
   @mkdir 'app/styles'
   @mkdir 'app/views'
   @mkdir 'app/templates'
+  @mkdir 'app/jade'
+  @mkdir 'app/jade/layouts'
+  @mkdir 'dist'
 
-FantaGenerator.prototype.manifest = ->
-  switch @manifest.apptype
-    when 'app-web'
-      return
-    when 'chrome-extension'
-      return
-    when 'node-app'
-      return
+FantaGenerator.prototype.h5bp = ->
+  @copy 'favicon.ico', 'app/favicon.ico'
+  @copy '404.html', 'app/404.html'
+  @copy 'robots.txt', 'app/robots.txt'
+
+FantaGenerator.prototype.jade = ->
+  @template 'jade/_index.jade', 'app/jade/index.jade'
+  @template 'jade/_default.jade', 'app/jade/layouts/_default.jade'
+
+FantaGenerator.prototype.seajs = ->
+  @template '_seajs-config.coffee', 'app/scripts/seajs-config.coffee'
+
+FantaGenerator.prototype.uicomponents = ->
+  #copy common
+  @copy 'scripts/common/_const.coffee', 'app/scripts/common/const.coffee'
+  @copy 'scripts/common/_utils.coffee', 'app/scripts/common/utils.coffee'
+
+  #copy cells
+  if @includeAutoComplete
+    @copy 'scripts/cells/_acp.coffee', 'app/scripts/cells/acp.coffee'
+  if @includeSmartTree
+    @copy 'scripts/cells/_tree.coffee', 'app/scripts/cells/tree.coffee'
+  if @includeSmartList
+    @copy 'scripts/cells/_zlist.coffee', 'app/scripts/cells/zlist.coffee'
+  if @includeSmartPagination
+    @copy 'scripts/cells/_paginator.coffee', 'app/scripts/cells/paginator.coffee'
+
 module.exports = FantaGenerator

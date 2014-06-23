@@ -2,19 +2,16 @@
   "name": "<%= _.slugify(appname) %>",
   "private": true,
   "dependencies": {
-    "bootstrap-sass-official": "~3.1.0",
-    "modernizr": "~2.6.2",
-    "jquery": "~1.11.0",
-    "bootstrap": "~3.1.1",
-    "font-awesome": "~4.0.3",
-    "seajs": "*",
-    "select2": "~3.4.8",
-    "jstree": "~3.0.0",
-    "bootstrap-jstree-theme": "~0.2.0",
-    "list.js": "~1.1.1",
-    "purl": "~2.3.1",
-    "bootstrap-datepicker": "~1.3.0",
-    "jquery.simplePagination": "*"
+    "jquery": "*",<% if (includeModernizr) { %>
+    "modernizr": "~2.6.2",<% } %> <% if (includeBootstrap) { %>
+    "bootstrap": "~3.1.1", <% } %> <% if (includeFontAwesome) { %>
+    "font-awesome": "~4.0.3",<% } %> <% if (includeAutoComplete) { %>
+    "select2": "~3.4.8", <% } %> <% if (includeSmartTree) { %>
+    "jstree": "~3.0.0",  <% } %> <% if (includeSmartList) { %>
+    "list.js": "~1.1.1", <% } %> <% if (includeSmartUrl) { %>
+    "purl": "~2.3.1", <% } %> <% if (includeSmartPagination) { %>
+    "jquery.simplePagination": "*", <% } %>
+    "seajs": "*"
   },
   "devDependencies": {}
 }

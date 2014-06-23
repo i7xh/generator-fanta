@@ -2,7 +2,8 @@
 'use strict';
 var FantaGenerator, chalk, path, util, yeoman, yosay,
   __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 util = require('util');
 
@@ -19,7 +20,6 @@ FantaGenerator = (function(_super) {
 
   function FantaGenerator() {
     yeoman.generators.Base.apply(this, arguments);
-    this.manifest = {};
     this.sourceRoot(path.join(__dirname, 'templates'));
     this.pkg = require('../package.json');
     this.on('end', function() {
@@ -48,21 +48,60 @@ FantaGenerator = (function(_super) {
         message: 'Would you like to create app below?',
         choices: ['web-app', 'chrome-extension', 'node-app']
       }, {
+        name: 'root_path',
+        message: 'Set Your App Static Path(default: "/static")',
+        "default": this.root_path ? this.root_path : "/static"
+      }, {
         type: 'checkbox',
         name: 'uifeatures',
         message: 'What more would you like?',
         choices: [
           {
-            name: 'bootstrap',
+            name: 'Bootstrap',
             value: 'includeBootstrap',
             checked: true
           }, {
-            value: 'Modernizr',
-            name: 'includeModernizr',
-            checked: false
+            name: 'Less',
+            value: 'includeLess',
+            checked: true
           }, {
-            value: 'less',
-            name: 'includeLess',
+            name: 'Modernizr',
+            value: 'includeModernizr',
+            checked: true
+          }, {
+            name: 'Bootstrap Javascript files',
+            value: 'includeJsBootstrap',
+            checked: true
+          }, {
+            name: 'FontAwesome',
+            value: 'includeFontAwesome',
+            checked: false
+          }
+        ]
+      }, {
+        type: 'checkbox',
+        name: 'uicomponents',
+        message: 'What more components would you like to support?',
+        choices: [
+          {
+            name: 'AutoComplete',
+            value: 'includeAutoComplete',
+            checked: true
+          }, {
+            name: 'SmartTree',
+            value: 'includeSmartTree',
+            checked: true
+          }, {
+            name: 'SmartUrl',
+            value: 'includeSmartUrl',
+            checked: true
+          }, {
+            name: 'SmartList',
+            value: 'includeSmartList',
+            checked: true
+          }, {
+            name: 'SmartPagination',
+            value: 'includeSmartPagination',
             checked: true
           }
         ]
@@ -72,12 +111,22 @@ FantaGenerator = (function(_super) {
       return function(answers) {
         var isChecked;
         isChecked = function(choices, value) {
-          return choices.indexOf(value) > -1;
+          return __indexOf.call(choices, value) >= 0;
         };
-        _this.appname = _this.manifest.name = answers.appname.replace(/\"/g, '\\"');
-        _this.manifest.description = answers.description.replace(/\"/g, '\\"');
-        _this.manifest.apptype = answers.apptype;
-        console.log(_this.manifest.apptype);
+        _this.appname = answers.appname.replace(/\"/g, '\\"');
+        _this.description = answers.description.replace(/\"/g, '\\"');
+        _this.apptype = answers.apptype;
+        _this.root_path = answers.root_path;
+        _this.includeBootstrap = isChecked(answers.uifeatures, 'includeBootstrap');
+        _this.includeLess = isChecked(answers.uifeatures, 'includeLess');
+        _this.includeModernizr = isChecked(answers.uifeatures, 'includeModernizr');
+        _this.includeJsBootstrap = isChecked(answers.uifeatures, 'includeJsBootstrap');
+        _this.includeFontAwesome = isChecked(answers.uifeatures, 'includeFontAwesome');
+        _this.includeAutoComplete = isChecked(answers.uicomponents, 'includeAutoComplete');
+        _this.includeSmartList = isChecked(answers.uicomponents, 'includeSmartList');
+        _this.includeSmartTree = isChecked(answers.uicomponents, 'includeSmartTree');
+        _this.includeSmartUrl = isChecked(answers.uicomponents, 'includeSmartUrl');
+        _this.includeSmartPagination = isChecked(answers.uicomponents, 'includeSmartPagination');
         return done();
       };
     })(this));
@@ -93,7 +142,7 @@ FantaGenerator.prototype.projectfiles = function() {
 };
 
 FantaGenerator.prototype.gruntfile = function() {
-  return this.template('Gruntfile.js');
+  return this.copy('Gruntfile.js', 'Gruntfile.js');
 };
 
 FantaGenerator.prototype.packageJSON = function() {
@@ -104,12 +153,53 @@ FantaGenerator.prototype.bowerJSON = function() {
   return this.template('_bower.json', 'bower.json');
 };
 
+FantaGenerator.prototype.coffeelint = function() {
+  return this.copy('_coffeelint.json', 'coffeelint.json');
+};
+
 FantaGenerator.prototype.app = function() {
   this.mkdir('app');
   this.mkdir('app/scripts');
+  this.mkdir('app/scripts/cells');
+  this.mkdir('app/scripts/common');
   this.mkdir('app/styles');
   this.mkdir('app/views');
-  return this.mkdir('app/templates');
+  this.mkdir('app/templates');
+  this.mkdir('app/jade');
+  this.mkdir('app/jade/layouts');
+  return this.mkdir('dist');
+};
+
+FantaGenerator.prototype.h5bp = function() {
+  this.copy('favicon.ico', 'app/favicon.ico');
+  this.copy('404.html', 'app/404.html');
+  return this.copy('robots.txt', 'app/robots.txt');
+};
+
+FantaGenerator.prototype.jade = function() {
+  this.template('jade/_index.jade', 'app/jade/index.jade');
+  return this.template('jade/_default.jade', 'app/jade/layouts/_default.jade');
+};
+
+FantaGenerator.prototype.seajs = function() {
+  return this.template('_seajs-config.coffee', 'app/scripts/seajs-config.coffee');
+};
+
+FantaGenerator.prototype.uicomponents = function() {
+  this.copy('scripts/common/_const.coffee', 'app/scripts/common/const.coffee');
+  this.copy('scripts/common/_utils.coffee', 'app/scripts/common/utils.coffee');
+  if (this.includeAutoComplete) {
+    this.copy('scripts/cells/_acp.coffee', 'app/scripts/cells/acp.coffee');
+  }
+  if (this.includeSmartTree) {
+    this.copy('scripts/cells/_tree.coffee', 'app/scripts/cells/tree.coffee');
+  }
+  if (this.includeSmartList) {
+    this.copy('scripts/cells/_zlist.coffee', 'app/scripts/cells/zlist.coffee');
+  }
+  if (this.includeSmartPagination) {
+    return this.copy('scripts/cells/_paginator.coffee', 'app/scripts/cells/paginator.coffee');
+  }
 };
 
 module.exports = FantaGenerator;
