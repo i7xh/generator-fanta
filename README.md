@@ -9,7 +9,7 @@
 
 Trick question. It's not a thing. It's this guy:
 
-![](fanta-drop-illustration.jpg)
+![](http://www.vectors4all.net/preview/fanta-drop-illustration.jpg)
 
 Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
