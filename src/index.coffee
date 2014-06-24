@@ -32,12 +32,11 @@ class FantaGenerator extends yeoman.generators.Base
       }
       {
         type: 'list'
-        name: 'apptype'
-        message: 'Would you like to create app below?'
+        name: 'selectStyle'
+        message: 'Set Your Style below?'
         choices: [
-          'web-app'
-          'chrome-extension'
-          'node-app'
+          'Less'
+          'Sass'
         ]
       }
       {
@@ -73,7 +72,7 @@ class FantaGenerator extends yeoman.generators.Base
           {
             name: 'FontAwesome',
             value: 'includeFontAwesome',
-            checked: false
+            checked: true
           }
         ]
       }
@@ -114,7 +113,7 @@ class FantaGenerator extends yeoman.generators.Base
         isChecked = (choices, value) -> return value in choices
         @appname = answers.appname.replace /\"/g, '\\"'
         @description = answers.description.replace /\"/g, '\\"'
-        @apptype = answers.apptype
+        @selectStyle = answers.selectStyle
         @root_path = answers.root_path
         @includeBootstrap = isChecked answers.uifeatures, 'includeBootstrap'
         @includeLess = isChecked answers.uifeatures, 'includeLess'
@@ -165,6 +164,12 @@ FantaGenerator.prototype.h5bp = ->
 FantaGenerator.prototype.jade = ->
   @template 'jade/_index.jade', 'app/jade/index.jade'
   @template 'jade/_default.jade', 'app/jade/layouts/_default.jade'
+
+FantaGenerator.prototype.style = ->
+  switch @selectStyle
+    when "Less" then @template 'styles/_main.less', 'app/styles/main.less'
+    when "Sass" then @template 'styles/_main.scss', 'app/styles/main.scss'
+
 
 FantaGenerator.prototype.seajs = ->
   @template '_seajs-config.coffee', 'app/scripts/seajs-config.coffee'

@@ -54,6 +54,10 @@ module.exports = function(grunt) {
         livereload: true
       }
     },
+    sass: {
+        files: ['<%%= config.uiApp %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['sass:server']
+    }
   },
 
   // Empties folders to start fresh
@@ -123,6 +127,33 @@ module.exports = function(grunt) {
         '<%%= config.uiDist %>/styles/main.css': '<%%= config.uiStyle %>/main.less'
       }
     }
+  },
+
+  // Compiles Sass to CSS and generates necessary files if requested
+  sass: {
+      options: {
+          loadPath: [
+              'bower_components'
+          ]
+      },
+      dist: {
+          files: [{
+              expand: true,
+              cwd: '<%%= config.uiApp %>/styles',
+              src: ['*.scss'],
+              dest: '.tmp/styles',
+              ext: '.css'
+          }]
+      },
+      server: {
+          files: [{
+              expand: true,
+              cwd: '<%%= config.uiApp %>/styles',
+              src: ['*.scss'],
+              dest: '.tmp/styles',
+              ext: '.css'
+          }]
+      }
   },
 
   copy: {

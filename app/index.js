@@ -44,9 +44,9 @@ FantaGenerator = (function(_super) {
         "default": 'My Fanta App'
       }, {
         type: 'list',
-        name: 'apptype',
-        message: 'Would you like to create app below?',
-        choices: ['web-app', 'chrome-extension', 'node-app']
+        name: 'selectStyle',
+        message: 'Set Your Style below?',
+        choices: ['Less', 'Sass']
       }, {
         name: 'root_path',
         message: 'Set Your App Static Path(default: "/static")',
@@ -75,7 +75,7 @@ FantaGenerator = (function(_super) {
           }, {
             name: 'FontAwesome',
             value: 'includeFontAwesome',
-            checked: false
+            checked: true
           }
         ]
       }, {
@@ -115,7 +115,7 @@ FantaGenerator = (function(_super) {
         };
         _this.appname = answers.appname.replace(/\"/g, '\\"');
         _this.description = answers.description.replace(/\"/g, '\\"');
-        _this.apptype = answers.apptype;
+        _this.selectStyle = answers.selectStyle;
         _this.root_path = answers.root_path;
         _this.includeBootstrap = isChecked(answers.uifeatures, 'includeBootstrap');
         _this.includeLess = isChecked(answers.uifeatures, 'includeLess');
@@ -179,6 +179,15 @@ FantaGenerator.prototype.h5bp = function() {
 FantaGenerator.prototype.jade = function() {
   this.template('jade/_index.jade', 'app/jade/index.jade');
   return this.template('jade/_default.jade', 'app/jade/layouts/_default.jade');
+};
+
+FantaGenerator.prototype.style = function() {
+  switch (this.selectStyle) {
+    case "Less":
+      return this.template('styles/_main.less', 'app/styles/main.less');
+    case "Sass":
+      return this.template('styles/_main.scss', 'app/styles/main.scss');
+  }
 };
 
 FantaGenerator.prototype.seajs = function() {
