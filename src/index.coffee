@@ -127,7 +127,7 @@ FantaGenerator.prototype.projectfiles = ->
   @copy 'jshintrc', '.jshintrc'
 
 FantaGenerator.prototype.gruntfile = ->
-  @copy 'Gruntfile.js', 'Gruntfile.js'
+  @template '_Gruntfile.js', 'Gruntfile.js'
 
 FantaGenerator.prototype.packageJSON = ->
   @template '_package.json', 'package.json'
