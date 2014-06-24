@@ -174,9 +174,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
       'clean:dist',
-      'coffee:dist',
-      'jade:compile',
-      'less:compile'
+      'jade:compile',<% if (selectStyle === 'Less') { %>
+      'less:compile',<% } %><% if (selectStyle == 'Sass') { %>
+      'sass:dist',<% } %>
+      'coffee:dist'
   ]);
 
   //register default

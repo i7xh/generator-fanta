@@ -1,0 +1,2 @@
+cake build
+npm publish .

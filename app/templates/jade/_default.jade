@@ -22,5 +22,11 @@ html(lang="en")
 
     // build:js /scripts/main.js
     script(src='<%= _.slugify(root_path) %>/bower_components/jquery/dist/jquery.js')
-    script(src='<%= _.slugify(root_path) %>/scripts/main.js')
+    script(src='<%= _.slugify(root_path) %>/bower_components/bootstrap/dist/js/bootstrap.js')
+    script(src='<%= _.slugify(root_path) %>/bower_components/seajs/sea.js')
+    script(src='<%= _.slugify(root_path) %>/scripts/seajs-config.js')
+    script(type="text/javascript").
+      seajs.use('main', function(module){
+      module.load()
+      })
     // endbuild

@@ -4,7 +4,8 @@
   "dependencies": {
     "jquery": "*",<% if (includeModernizr) { %>
     "modernizr": "~2.6.2",<% } %> <% if (includeBootstrap) { %>
-    "bootstrap": "~3.1.1", <% } %> <% if (includeFontAwesome) { %>
+    "bootstrap": "~3.1.1", <% if (selectStyle === 'Sass') { %>
+    "bootstrap-sass-official": "~3.1.0", <% } %> <% } %> <% if (includeFontAwesome) { %>
     "font-awesome": "~4.0.3",<% } %> <% if (includeAutoComplete) { %>
     "select2": "~3.4.8", <% } %> <% if (includeSmartTree) { %>
     "jstree": "~3.0.0",  <% } %> <% if (includeSmartList) { %>

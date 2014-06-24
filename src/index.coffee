@@ -176,6 +176,7 @@ FantaGenerator.prototype.seajs = ->
 
 FantaGenerator.prototype.uicomponents = ->
   #copy common
+  @template 'scripts/_main.coffee', 'app/scripts/main.coffee'
   @copy 'scripts/common/_const.coffee', 'app/scripts/common/const.coffee'
   @copy 'scripts/common/_utils.coffee', 'app/scripts/common/utils.coffee'
 
