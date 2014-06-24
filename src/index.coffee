@@ -55,11 +55,6 @@ class FantaGenerator extends yeoman.generators.Base
             checked: true
           }
           {
-            name: 'Less'
-            value: 'includeLess'
-            checked: true
-          }
-          {
             name: 'Modernizr'
             value: 'includeModernizr'
             checked: true
@@ -116,7 +111,6 @@ class FantaGenerator extends yeoman.generators.Base
         @selectStyle = answers.selectStyle
         @root_path = answers.root_path
         @includeBootstrap = isChecked answers.uifeatures, 'includeBootstrap'
-        @includeLess = isChecked answers.uifeatures, 'includeLess'
         @includeModernizr = isChecked answers.uifeatures, 'includeModernizr'
         @includeJsBootstrap = isChecked answers.uifeatures, 'includeJsBootstrap'
         @includeFontAwesome = isChecked answers.uifeatures, 'includeFontAwesome'
