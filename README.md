@@ -1,5 +1,7 @@
 # generator-fanta 
 
+![](http://www.vectors4all.net/preview/fanta-drop-illustration.jpg)
+
 > [Yeoman](http://yeoman.io) generator
 
 
@@ -9,7 +11,6 @@
 
 Trick question. It's not a thing. It's this guy:
 
-![](http://www.vectors4all.net/preview/fanta-drop-illustration.jpg)
 
 Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
