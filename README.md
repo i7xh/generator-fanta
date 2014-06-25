@@ -49,7 +49,7 @@
 封装的模块组件
 
 * Smartlist (基于[list.js](http://listjs.com/))
-* SmartPaginator (基于(simplePaginator)[http://flaviusmatis.github.io/simplePagination.js/])
+* SmartPaginator (基于[simplePaginator](http://flaviusmatis.github.io/simplePagination.js/))
 * Purl (好的的原生态)
 * SmartTree (基于[jstree](http://www.jstree.com/)(天坑无数，不看文档看代码))
 * AutoComplete (基于[select2](http://ivaynberg.github.io/select2/))
