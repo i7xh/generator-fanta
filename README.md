@@ -24,11 +24,11 @@
 
 * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 
-编写脚本的语言支持，义无反顾的支持用coffee来写javascript，高效，简洁，准确
+编写脚本的语言支持，义无反顾的支持用 Coffee 来写 Javascript，高效，简洁，准确
 
 * [CoffeeScript](http://coffeescript.org/)
 
-模板，本框架就用jade了，原因只有一个，相比其他，jade最简洁高效
+模板，本框架就用 Jade 了，原因只有一个，相比其他，Jade 最简洁高效
 
 * [Jade](http://jade-lang.com/)
 
@@ -38,13 +38,13 @@
 
 
 
-包管理，不用把像jquery和bootstrap的放在代码库里面引用，通过配置来管理各种第三方css和js库
+包管理，不用把像 JQuery 和 Bootstrap 的放在代码库里面引用，通过配置来管理各种第三方 CSS 和 Javascript 库
 
 * [bower](http://bower.io)
 
 前端自动化脚本，这个就不用多介绍了
 
-* [grunt](http://gruntjs.com)
+* [Grunt](http://gruntjs.com)
 
 封装的模块组件
 
@@ -56,7 +56,7 @@
 
 
 ###Install
-安装yeoman：
+安装Yeoman：
 
 ```bash
 $ npm install -g yo

@@ -1,6 +1,6 @@
 {
   "name": "generator-fanta",
-  "version": "0.0.4beta",
+  "version": "0.0.5",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
