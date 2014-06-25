@@ -40,7 +40,7 @@
 
 包管理，不用把像 JQuery 和 Bootstrap 的放在代码库里面引用，通过配置来管理各种第三方 CSS 和 Javascript 库
 
-* [bower](http://bower.io)
+* [Bower](http://bower.io)
 
 前端自动化脚本，这个就不用多介绍了
 
