@@ -24,7 +24,7 @@
 
 * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 
-编写脚本的语言支持，义无反顾的支持用coffee来写javascript，高效,简洁,准确
+编写脚本的语言支持，义无反顾的支持用coffee来写javascript，高效，简洁，准确
 
 * [CoffeeScript](http://coffeescript.org/)
 
