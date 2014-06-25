@@ -9,7 +9,7 @@
 
 ### Introduction
 
-以[Yeoman](http://yeoman.io)框架为基础的[generator](http://yeoman.io/authoring/)，fanta主要的特点
+以 [Yeoman](http://yeoman.io) 框架为基础的 [generator](http://yeoman.io/authoring/)，fanta 主要的特点
 
 样式支持
 
@@ -24,7 +24,7 @@
 
 * [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 
-编写脚本的语言支持，义无反顾的支持用 Coffee 来写 Javascript，高效，简洁，准确
+编写脚本的语言支持，义无反顾的支持用 CoffeeScript 来写 JavaScript，高效，简洁，准确
 
 * [CoffeeScript](http://coffeescript.org/)
 
@@ -38,7 +38,7 @@
 
 
 
-包管理，不用把像 JQuery 和 Bootstrap 的放在代码库里面引用，通过配置来管理各种第三方 CSS 和 Javascript 库
+包管理，不用把像 jQuery 和 Bootstrap 的放在代码库里面引用，通过配置来管理各种第三方 CSS 和 Javascript 库
 
 * [Bower](http://bower.io)
 
@@ -48,11 +48,11 @@
 
 封装的模块组件
 
-* Smartlist (基于[list.js](http://listjs.com/))
-* SmartPaginator (基于[simplePaginator](http://flaviusmatis.github.io/simplePagination.js/))
-* Purl (好的的原生态)
-* SmartTree (基于[jstree](http://www.jstree.com/)(天坑无数，不看文档看代码))
-* AutoComplete (基于[select2](http://ivaynberg.github.io/select2/))
+* Smartlist (基于 [list.js](http://listjs.com/) )
+* SmartPaginator (基于 [simplePaginator](http://flaviusmatis.github.io/simplePagination.js/) )
+* Purl (很好的原生态)
+* SmartTree (基于 [jstree](http://www.jstree.com/) (填坑无数，不看文档看代码))
+* AutoComplete (基于 [select2](http://ivaynberg.github.io/select2/) )
 
 
 ###Install
